@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    image: flight-search-backend:latest
+    build:
+      context: ./flight-search-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - flight-search-network
+
+  frontend:
+    image: flight-search-frontend:latest
+    build:
+      context: ./flight-search-frontend
+    ports:
+      - "3000:80"
+    networks:
+      - flight-search-network
+
+networks:
+  flight-search-network:
+    driver: bridge
