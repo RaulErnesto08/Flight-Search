@@ -18,7 +18,7 @@ const FlightResultsPage: React.FC = () => {
 
   const sortFlights = (flights: any[]) => {
     let sortedFlights = [...flights];
-  
+
     if (sortOption === 'price') {
       sortedFlights.sort((a, b) => {
         const priceDiff = parseFloat(a.price.total) - parseFloat(b.price.total);
@@ -67,8 +67,6 @@ const FlightResultsPage: React.FC = () => {
         }
       });
 
-      console.log("Requesting URL:", url.toString());
-
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
@@ -98,7 +96,7 @@ const FlightResultsPage: React.FC = () => {
   };
 
   const getCityName = (iataCode: string) => {
-    if (dictionaries && dictionaries.locations && dictionaries.locations[iataCode]) {
+    if (dictionaries && dictionaries.locations && dictionaries.locations[iataCode] && dictionaries.locations[iataCode].cityName != null) {
       return `${formatString(dictionaries.locations[iataCode].cityName)} (${iataCode})`;
     }
     return iataCode;
@@ -209,40 +207,24 @@ const FlightResultsPage: React.FC = () => {
             <label htmlFor="sortByPrice" className="mr-2 font-semibold">
               Sort by Price:
             </label>
-            <input
-              type="checkbox"
-              id="sortByPrice"
-              checked={sortByPrice}
-              onChange={handleSortByPriceChange}
-            />
-            {sortByPrice && (
-              <button
+            <button
                 className="ml-2 p-2 bg-gray-300 rounded"
                 onClick={togglePriceOrder}
               >
                 {priceAscending ? 'Asc' : 'Desc'}
               </button>
-            )}
           </div>
 
           <div>
             <label htmlFor="sortByDuration" className="mr-2 font-semibold">
               Sort by Duration:
             </label>
-            <input
-              type="checkbox"
-              id="sortByDuration"
-              checked={sortByDuration}
-              onChange={handleSortByDurationChange}
-            />
-            {sortByDuration && (
-              <button
+            <button
                 className="ml-2 p-2 bg-gray-300 rounded"
                 onClick={toggleDurationOrder}
               >
                 {durationAscending ? 'Asc' : 'Desc'}
               </button>
-            )}
           </div>
         </div>
 

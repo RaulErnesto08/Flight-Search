@@ -25,7 +25,10 @@ const FlightDetailsPage = () => {
   }, [flightId]);
 
   const getCityName = (iataCode: string) => {
-    return formatString(dictionaries?.locations?.[iataCode]?.cityName) || iataCode;
+    if (dictionaries && dictionaries.locations && dictionaries.locations[iataCode] && dictionaries.locations[iataCode].cityName != null) {
+      return `${formatString(dictionaries.locations[iataCode].cityName)} (${iataCode})`;
+    }
+    return iataCode;
   };
 
   const getCarrierName = (carrierCode: string) => {

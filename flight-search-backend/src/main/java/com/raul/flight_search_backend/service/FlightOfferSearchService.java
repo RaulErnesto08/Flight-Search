@@ -124,12 +124,8 @@ public class FlightOfferSearchService {
             }
 
         } catch (HttpClientErrorException e) {
-            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-                System.out.println("404 Error for IATA code: " + iataCode + " - No location found.");
-                return null;
-            } else {
-                throw new RuntimeException("Failed to fetch data for IATA code: " + iataCode, e);
-            }
+            System.out.println("404 Error for IATA code: " + iataCode + " - No location found.");
+            return null;
         }
     }
 
